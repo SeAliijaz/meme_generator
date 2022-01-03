@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meme_generator/Initial_Screen/splash_screen.dart';
+import 'package:meme_generator/Main_Screens/first_screen.dart';
 import 'package:meme_generator/Main_Screens/home_screen.dart';
 
 void main() {
@@ -19,8 +20,7 @@ class MyApp extends StatelessWidget {
       ///Theme
       theme: ThemeData(
         primarySwatch: Colors.red,
-        primaryColor: Colors.cyan,
-        scaffoldBackgroundColor: Colors.black,
+        primaryColor: Colors.blue,
       ),
 
       ///Home
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       routes: {
         SplashScreen.id: (context) => SplashScreen(),
         HomeScreen.id: (context) => HomeScreen(),
-        // SplashScreen.id:(context)=> SplashScreen(),
+        FirstScreen.id: (context) => FirstScreen(),
         // SplashScreen.id:(context)=> SplashScreen(),
         // SplashScreen.id:(context)=> SplashScreen(),
         // SplashScreen.id:(context)=> SplashScreen(),

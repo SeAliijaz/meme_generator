@@ -1,6 +1,7 @@
+import 'dart:async';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:meme_generator/Main_Screens/first_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   static final id = '/SplashScreen';
@@ -9,6 +10,25 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Timer _timer;
+
+  @override
+  void initState() {
+    _timer = Timer(Duration(seconds: 5), () async {
+      await Navigator.pushNamed(
+        context,
+        FirstScreen.id,
+      );
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
