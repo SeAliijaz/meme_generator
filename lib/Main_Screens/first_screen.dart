@@ -4,6 +4,7 @@ import 'package:meme_generator/Custom_Button/custom_button.dart';
 import 'package:meme_generator/Main_Screens/home_screen.dart';
 
 class FirstScreen extends StatelessWidget {
+  ///Final id
   static final id = '/FirstScreen';
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,12 @@ class FirstScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Image.asset(
+                    'images/smiley1.png',
+                  ),
+                  SizedBox(height: 10),
+
+                  ///Custom Button 1
                   InkWell(
                     onTap: () {
                       Navigator.pushNamed(context, HomeScreen.id);
@@ -35,7 +42,11 @@ class FirstScreen extends StatelessWidget {
                       clr: Colors.blue,
                     ),
                   ),
+
+                  ///SizedBox
                   SizedBox(height: 10),
+
+                  ///Custom Button 1
                   InkWell(
                     onTap: () {},
                     child: CustomButton(

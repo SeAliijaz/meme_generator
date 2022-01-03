@@ -4,18 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:meme_generator/Main_Screens/first_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+  ///Final id
   static final id = '/SplashScreen';
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  ///Var for timer
   Timer _timer;
 
+  ///initializing timer
   @override
   void initState() {
     _timer = Timer(Duration(seconds: 5), () async {
-      await Navigator.pushNamed(
+      await Navigator.pushReplacementNamed(
         context,
         FirstScreen.id,
       );
@@ -23,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
+  ///Disposing Timer
   @override
   void dispose() {
     _timer.cancel();
@@ -46,15 +50,15 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             BackdropFilter(
               filter: ImageFilter.blur(
-                sigmaX: 7,
-                sigmaY: 7,
+                sigmaX: 15,
+                sigmaY: 15,
               ),
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Image.asset(
-                      'images/memelogo.png',
+                      'images/memelogo21.png',
                     ),
                     CircularProgressIndicator(
                       strokeWidth: 5,
