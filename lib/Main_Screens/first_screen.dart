@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class FirstScreen extends StatelessWidget {
+  static final id = '/FirstScreen';
   @override
   Widget build(BuildContext context) {
     return Scaffold();
