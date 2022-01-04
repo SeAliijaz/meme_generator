@@ -1,19 +1,100 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:meme_generator/Carousel_Slider/carousel_categories.dart';
-import 'package:meme_generator/Custom_Button/expandable_button.dart';
+import 'package:meme_generator/Main_Screens/image_view_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   ///Final id
   static final id = '/HomeScreen';
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  ///File image
+  File _image;
+
+  ///object  of Image picker
+  final picker = ImagePicker();
+
+  ///Method Image Picker from Gallery
+  _imagePickerFromGallery() async {
+    try {
+      final pick = await picker.pickImage(source: ImageSource.gallery);
+      setState(() {
+        if (_image != null) {
+          _image = File(pick.path);
+        } else {
+          print('No Image Selected');
+        }
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  ///Method Image picker from Camera
+  _imagePickerFromCamera() async {
+    try {
+      final pick = await picker.pickImage(source: ImageSource.camera);
+      setState(() {
+        if (_image != null) {
+          _image = File(pick.path);
+        } else {
+          print('No Image Selected');
+        }
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: ExpandableFloatingActionButton(),
+      floatingActionButton: SpeedDial(
+        icon: Icons.add,
+        activeIcon: Icons.close,
+        foregroundColor: Colors.white,
+        visible: true,
+        closeManually: false,
+        curve: Curves.ease,
+        overlayColor: Colors.black,
+        overlayOpacity: 0.5,
+        onOpen: () => print('OPENING DIAL'),
+        onClose: () => print('DIAL CLOSED'),
+        elevation: 10,
+        shape: StadiumBorder(),
+        children: [
+          SpeedDialChild(
+            child: Icon(Icons.camera_alt),
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.black,
+            label: 'Camera',
+            labelStyle: TextStyle(fontSize: 15.0),
+            onTap: () {
+              _imagePickerFromCamera();
+            },
+          ),
+          SpeedDialChild(
+            child: Icon(Icons.photo),
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.black,
+            label: 'Gallery',
+            labelStyle: TextStyle(fontSize: 15.0),
+            onTap: () {
+              _imagePickerFromGallery();
+            },
+          ),
+        ],
+      ),
       body: Stack(
         children: [
           ///BackGround Image
@@ -66,7 +147,7 @@ class HomeScreen extends StatelessWidget {
                       'Meme-Generator',
                       style: GoogleFonts.lateef(
                           textStyle: TextStyle(
-                        fontSize: 35.0,
+                        fontSize: 40.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       )),
@@ -80,7 +161,7 @@ class HomeScreen extends StatelessWidget {
                       'Make Your Faviroute Memes',
                       style: GoogleFonts.lateef(
                           textStyle: TextStyle(
-                        fontSize: 30,
+                        fontSize: 35.0,
                       )),
                     ),
                   ),
