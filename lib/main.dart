@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meme_generator/Initial_Screen/splash_screen.dart';
 import 'package:meme_generator/Main_Screens/first_screen.dart';
 import 'package:meme_generator/Main_Screens/home_screen.dart';
+import 'package:meme_generator/Meme-Generator/meme_creator.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,6 +32,13 @@ class MyApp extends StatelessWidget {
         SplashScreen.id: (context) => SplashScreen(),
         HomeScreen.id: (context) => HomeScreen(),
         FirstScreen.id: (context) => FirstScreen(),
+        MemeCreatorScreen.id: (context) => MemeCreatorScreen(),
+        // SplashScreen.id:(context)=> SplashScreen(),
+        // SplashScreen.id:(context)=> SplashScreen(),
+        // SplashScreen.id:(context)=> SplashScreen(),
+        // SplashScreen.id:(context)=> SplashScreen(),
+        // SplashScreen.id:(context)=> SplashScreen(),
+        // SplashScreen.id:(context)=> SplashScreen(),
         // SplashScreen.id:(context)=> SplashScreen(),
         // SplashScreen.id:(context)=> SplashScreen(),
         // SplashScreen.id:(context)=> SplashScreen(),

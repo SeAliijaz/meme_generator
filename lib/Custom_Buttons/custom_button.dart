@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomButton extends StatelessWidget {
+  ///For Clr
+  ///Text
   String txt;
   Color clr;
 
+  ///Const
   CustomButton({this.txt, this.clr});
+
+  ///Main Body
   @override
   Widget build(BuildContext context) {
     return Container(

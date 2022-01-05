@@ -17,12 +17,15 @@ class _SplashScreenState extends State<SplashScreen> {
   ///initializing timer
   @override
   void initState() {
-    _timer = Timer(Duration(seconds: 5), () async {
-      await Navigator.pushReplacementNamed(
-        context,
-        FirstScreen.id,
-      );
-    });
+    _timer = Timer(
+      Duration(seconds: 5),
+      () async {
+        await Navigator.pushReplacementNamed(
+          context,
+          FirstScreen.id,
+        );
+      },
+    );
     super.initState();
   }
 
@@ -58,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Image.asset(
-                      'images/memelogo21.png',
+                      'images/memelogo2.png',
                     ),
                     CircularProgressIndicator(
                       strokeWidth: 5,

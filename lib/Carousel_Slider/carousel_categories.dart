@@ -1,11 +1,14 @@
 class CarouselItems {
+  ///For Img Link
   String images;
 
+  ///Const
   CarouselItems({
     this.images,
   });
 }
 
+///List
 List carousel = [
   CarouselItems(
     images:

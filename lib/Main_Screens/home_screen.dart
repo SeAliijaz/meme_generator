@@ -7,7 +7,8 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meme_generator/Carousel_Slider/carousel_categories.dart';
-import 'package:meme_generator/Main_Screens/image_view_screen.dart';
+import 'package:meme_generator/Constants/constants.dart';
+import 'package:meme_generator/Meme-Generator/meme_creator.dart';
 
 class HomeScreen extends StatefulWidget {
   ///Final id
@@ -29,14 +30,19 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       final pick = await picker.pickImage(source: ImageSource.gallery);
       setState(() {
-        if (_image != null) {
+        if (pick != null) {
           _image = File(pick.path);
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return MemeCreatorScreen(
+              reciever: _image,
+            );
+          }));
         } else {
-          print('No Image Selected');
+          toast('No Image Selected');
         }
       });
     } catch (e) {
-      print(e.toString());
+      toast(e.toString());
     }
   }
 
@@ -45,20 +51,26 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       final pick = await picker.pickImage(source: ImageSource.camera);
       setState(() {
-        if (_image != null) {
+        if (pick != null) {
           _image = File(pick.path);
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return MemeCreatorScreen(
+              reciever: _image,
+            );
+          }));
         } else {
-          print('No Image Selected');
+          toast('No Image Selected');
         }
       });
     } catch (e) {
-      print(e.toString());
+      toast(e.toString());
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      ///floatingActionButton
       floatingActionButton: SpeedDial(
         icon: Icons.add,
         activeIcon: Icons.close,
@@ -95,108 +107,109 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Stack(
-        children: [
-          ///BackGround Image
-          Image.asset(
-            'images/bg1.jpg',
-            fit: BoxFit.fitHeight,
-            height: double.infinity,
-            width: double.infinity,
-          ),
 
-          ///For Blur BG
-          BackdropFilter(
-            filter: ImageFilter.blur(
-              sigmaX: 30,
-              sigmaY: 30,
+      ///Body
+      body: SafeArea(
+        child: Stack(
+          children: [
+            ///BackGround Image
+            Image.asset(
+              'images/bg1.jpg',
+              fit: BoxFit.fitHeight,
+              height: double.infinity,
+              width: double.infinity,
             ),
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ///SizedBox
-                  SizedBox(height: 45),
 
-                  /// Container for Arrow Back
-                  Container(
-                    child: Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(Icons.arrow_back),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  ///Image 1
-                  Center(
-                    child: Image.asset(
-                      'images/smiley2.png',
-                    ),
-                  ),
-
-                  ///Text 1
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      'Meme-Generator',
-                      style: GoogleFonts.lateef(
-                          textStyle: TextStyle(
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      )),
-                    ),
-                  ),
-
-                  ///Text 2
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      'Make Your Faviroute Memes',
-                      style: GoogleFonts.lateef(
-                          textStyle: TextStyle(
-                        fontSize: 35.0,
-                      )),
-                    ),
-                  ),
-
-                  ///Sized Box
-                  SizedBox(height: 15),
-
-                  ///Carousel Slider
-                  CarouselSlider.builder(
-                    itemCount: carousel.length,
-                    options: CarouselOptions(
-                      height: 300,
-                      autoPlay: true,
-                      aspectRatio: 2.0,
-                      enlargeCenterPage: true,
-                      viewportFraction: 0.9,
-                      initialPage: 0,
-                    ),
-                    itemBuilder: (c, index, j) {
-                      return Container(
-                        child: Image(
-                          image: CachedNetworkImageProvider(
-                            carousel[index].images,
+            ///For Blur BG
+            BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 30,
+                sigmaY: 30,
+              ),
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// Container for Arrow Back
+                    Container(
+                      child: Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(Icons.arrow_back),
                           ),
-                          fit: BoxFit.fitHeight,
-                          width: double.infinity,
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                        ],
+                      ),
+                    ),
+
+                    ///Image 1
+                    Center(
+                      child: Image.asset(
+                        'images/smiley2.png',
+                      ),
+                    ),
+
+                    ///Text 1
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        'Meme-Generator',
+                        style: GoogleFonts.lateef(
+                            textStyle: TextStyle(
+                          fontSize: 40.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        )),
+                      ),
+                    ),
+
+                    ///Text 2
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        'Make Your Faviroute Memes',
+                        style: GoogleFonts.lateef(
+                            textStyle: TextStyle(
+                          fontSize: 35.0,
+                        )),
+                      ),
+                    ),
+
+                    ///Sized Box
+                    SizedBox(height: 15),
+
+                    ///Carousel Slider
+                    CarouselSlider.builder(
+                      itemCount: carousel.length,
+                      options: CarouselOptions(
+                        height: 300,
+                        autoPlay: true,
+                        aspectRatio: 2.0,
+                        enlargeCenterPage: true,
+                        viewportFraction: 0.9,
+                        initialPage: 0,
+                      ),
+                      itemBuilder: (c, index, j) {
+                        return Container(
+                          child: Image(
+                            image: CachedNetworkImageProvider(
+                              carousel[index].images,
+                            ),
+                            fit: BoxFit.fitHeight,
+                            width: double.infinity,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
