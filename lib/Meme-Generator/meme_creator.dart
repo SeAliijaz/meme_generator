@@ -84,7 +84,7 @@ class _MemeCreatorScreenState extends State<MemeCreatorScreen> {
                           fit: BoxFit.fitHeight,
                         ),
                       )
-                    : CircularProgressIndicator(),
+                    : SizedBox(),
               ),
 
               ///Text On Image
@@ -97,7 +97,7 @@ class _MemeCreatorScreenState extends State<MemeCreatorScreen> {
                       children: <Widget>[
                         Container(
                             padding: EdgeInsets.symmetric(vertical: 8),
-                            child: Text(headerText.toUpperCase(),
+                            child: Text("${headerText}".toUpperCase(),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -115,13 +115,15 @@ class _MemeCreatorScreenState extends State<MemeCreatorScreen> {
                                         color: Colors.black87,
                                       )
                                     ]))),
+
+                        ///Spacer
                         Spacer(),
 
                         ///Text on Image
                         ///Footer Text
                         Container(
                             padding: EdgeInsets.symmetric(vertical: 8),
-                            child: Text(footerText.toUpperCase(),
+                            child: Text("${footerText}".toUpperCase(),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -154,14 +156,15 @@ class _MemeCreatorScreenState extends State<MemeCreatorScreen> {
       Padding(
           padding: EdgeInsets.all(8.0),
           child: TextFormField(
-              onChanged: (v) {
-                setState(() {
-                  headerText = v;
-                });
-              },
-              decoration: InputDecoration(
-                labelText: 'Header Text',
-              ))),
+            onChanged: (v) {
+              setState(() {
+                headerText = v;
+              });
+            },
+            decoration: InputDecoration(
+              hintText: 'Write 1st Text Here',
+            ),
+          )),
       Padding(
           padding: EdgeInsets.all(8.0),
           child: TextFormField(
@@ -171,29 +174,30 @@ class _MemeCreatorScreenState extends State<MemeCreatorScreen> {
                 });
               },
               decoration: InputDecoration(
-                labelText: 'Footer Text',
+                labelText: 'Write 2nd Text Here',
               ))),
 
       ///Buttons
       Row(children: [
         CustomFunctionalityButton(
           text: 'Save to Gallery',
-          clr: Colors.blue,
+          icn: Icons.save_alt,
           onPress: () {
             save();
           },
         ),
         CustomFunctionalityButton(
           text: 'Share Image',
-          clr: Colors.blue,
+          icn: Icons.share,
           onPress: () {
             share();
           },
-        )
+        ),
       ])
     ])))));
   }
 
+  ///Save function
   void save() async {
     await screenshotController
         .capture(delay: const Duration(milliseconds: 10))
@@ -215,6 +219,7 @@ class _MemeCreatorScreenState extends State<MemeCreatorScreen> {
     });
   }
 
+  ///Share Function
   void share() async {
     await screenshotController
         .capture(delay: const Duration(milliseconds: 10))
@@ -226,7 +231,7 @@ class _MemeCreatorScreenState extends State<MemeCreatorScreen> {
         final imagePath = await File('${directory.path}/image$d.png').create();
         await imagePath.writeAsBytes(image);
 
-        /// Share Plugin
+        ///Share
         await Share.shareFiles([imagePath.path]);
       }
     });

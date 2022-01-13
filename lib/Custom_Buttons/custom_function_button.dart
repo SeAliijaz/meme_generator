@@ -5,13 +5,13 @@ class CustomFunctionalityButton extends StatelessWidget {
   ///Txt
   String text;
   Function onPress;
-  Color clr;
+  IconData icn;
 
   ///Const
   CustomFunctionalityButton({
     this.text,
     this.onPress,
-    this.clr,
+    this.icn,
   });
 
   ///main body
@@ -19,21 +19,33 @@ class CustomFunctionalityButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(10.0),
         child: InkWell(
           onTap: onPress,
           child: Container(
             decoration: BoxDecoration(
-              color: clr,
-              borderRadius: BorderRadius.circular(50),
-            ),
-            height: 60,
-            child: Center(
-              child: Text(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3),
+                  ),
+                ]),
+            child: TextButton.icon(
+              onPressed: onPress,
+              icon: Icon(
+                icn,
+                color: Colors.black,
+              ),
+              label: Text(
                 "${text}",
                 style: GoogleFonts.lateef(
                   textStyle: TextStyle(
-                    fontSize: 25.0,
+                    color: Colors.black,
+                    fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

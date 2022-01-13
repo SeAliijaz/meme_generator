@@ -39,38 +39,24 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      ///theme
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        color: Colors.blueAccent,
-        child: Stack(
-          children: [
-            Image.asset(
-              'images/bg1.jpg',
-              fit: BoxFit.fitHeight,
-              height: double.infinity,
-              width: double.infinity,
-            ),
-            BackdropFilter(
-              filter: ImageFilter.blur(
-                sigmaX: 15,
-                sigmaY: 15,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ///Meme Generator logo
+              Image.asset(
+                'images/memegenrator-removebg-preview.png',
               ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Image.asset(
-                      'images/memelogo2.png',
-                    ),
-                    CircularProgressIndicator(
-                      strokeWidth: 5,
-                    ),
-                  ],
-                ),
+              CircularProgressIndicator(
+                color: Theme.of(context).primaryColor,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
