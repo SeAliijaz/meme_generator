@@ -3,6 +3,7 @@ import 'package:meme_generator/Initial_Screen/splash_screen.dart';
 import 'package:meme_generator/Main_Screens/first_screen.dart';
 import 'package:meme_generator/Main_Screens/home_screen.dart';
 import 'package:meme_generator/Meme-Generator/meme_creator.dart';
+import 'package:meme_generator/Meme-Generator/memes_saver.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,9 +23,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
         primaryColor: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
-        backgroundColor: Colors.black,
       ),
+
+      ///theme will be saved as system has
+      themeMode: ThemeMode.system,
 
       ///Home
       home: SplashScreen(),
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.id: (context) => HomeScreen(),
         FirstScreen.id: (context) => FirstScreen(),
         MemeCreatorScreen.id: (context) => MemeCreatorScreen(),
-        // SplashScreen.id:(context)=> SplashScreen(),
+        MyMemesSaver.id: (context) => MyMemesSaver(),
         // SplashScreen.id:(context)=> SplashScreen(),
         // SplashScreen.id:(context)=> SplashScreen(),
         // SplashScreen.id:(context)=> SplashScreen(),

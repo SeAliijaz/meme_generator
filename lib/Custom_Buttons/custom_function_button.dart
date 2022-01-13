@@ -23,17 +23,14 @@ class CustomFunctionalityButton extends StatelessWidget {
         child: InkWell(
           onTap: onPress,
           child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(50),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3),
-                  ),
-                ]),
+            decoration: BoxDecoration(color: Colors.white, boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3),
+              ),
+            ]),
             child: TextButton.icon(
               onPressed: onPress,
               icon: Icon(
@@ -45,7 +42,7 @@ class CustomFunctionalityButton extends StatelessWidget {
                 style: GoogleFonts.lateef(
                   textStyle: TextStyle(
                     color: Colors.black,
-                    fontSize: 20.0,
+                    fontSize: 25.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
