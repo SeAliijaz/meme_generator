@@ -1,7 +1,12 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:meme_generator/Constants/constants.dart';
 import 'package:meme_generator/Custom_Buttons/custom_function_button.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share/share.dart';
 
 class MemeCreatorScreen extends StatefulWidget {
   ///final id
@@ -21,6 +26,9 @@ class _MemeCreatorScreenState extends State<MemeCreatorScreen> {
   ///Key
   final GlobalKey repaintKey = new GlobalKey();
 
+  ///Screenshot
+  ScreenshotController screenshotController = ScreenshotController();
+
   ///texts to make on Image
   String headerText = "";
   String footerText = "";
@@ -29,112 +37,69 @@ class _MemeCreatorScreenState extends State<MemeCreatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ///Arrow back Icon
-                Container(
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.arrow_back,
-                          color: Colors.black,
+        body: SafeArea(
+            child: Container(
+                child: SingleChildScrollView(
+                    child: Column(children: [
+      ///Arrow back Icon
+      Container(
+          child: Row(children: [
+        IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ))
+      ])),
+
+      ///Page Header Text
+      Center(
+          child: Text('Meme_Generator 😜',
+              style: GoogleFonts.lateef(
+                  textStyle: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              )))),
+
+      ///SizedBox
+      SizedBox(height: 10),
+
+      ///RepaintBoundry
+      RepaintBoundary(
+          key: repaintKey,
+          child: Screenshot(
+            controller: screenshotController,
+            child: Stack(children: [
+              ///Image Shown
+              Container(
+                decoration: BoxDecoration(),
+                child: widget.reciever != null
+                    ? Center(
+                        child: Image.file(
+                          widget.reciever,
+                          height: 300,
+                          fit: BoxFit.fitHeight,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
+                      )
+                    : CircularProgressIndicator(),
+              ),
 
-                ///Image
-                Container(
-                  height: 150,
-                  child: Image.asset('images/smiley3.png'),
-                ),
-
-                ///Page Header Text
-                Center(
-                  child: Text(
-                    'Meme-Generator 😜',
-                    style: GoogleFonts.lateef(
-                      textStyle: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-
-                ///SizedBox
-                SizedBox(height: 10),
-
-                ///RepaintBoundry
-                RepaintBoundary(
-                  key: repaintKey,
-                  child: Stack(
-                    children: [
-                      ///Image Shown
-                      Container(
-                        decoration: BoxDecoration(),
-                        child: widget.reciever != null
-                            ? Center(
-                                child: Image.file(
-                                  widget.reciever,
-                                  height: 300,
-                                  fit: BoxFit.fitHeight,
-                                ),
-                              )
-                            : CircularProgressIndicator(),
-                      ),
-
-                      ///Text On Image
-                      ///Header Text
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 300,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                headerText.toUpperCase(),
+              ///Text On Image
+              ///Header Text
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 300,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                            padding: EdgeInsets.symmetric(vertical: 8),
+                            child: Text(headerText.toUpperCase(),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 26,
-                                  shadows: <Shadow>[
-                                    Shadow(
-                                      offset: Offset(2.0, 2.0),
-                                      blurRadius: 3.0,
-                                      color: Colors.black87,
-                                    ),
-                                    Shadow(
-                                      offset: Offset(2.0, 2.0),
-                                      blurRadius: 8.0,
-                                      color: Colors.black87,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Spacer(),
-
-                            ///Text on Image
-                            ///Footer Text
-                            Container(
-                                padding: EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  footerText.toUpperCase(),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 26,
@@ -148,66 +113,122 @@ class _MemeCreatorScreenState extends State<MemeCreatorScreen> {
                                         offset: Offset(2.0, 2.0),
                                         blurRadius: 8.0,
                                         color: Colors.black87,
+                                      )
+                                    ]))),
+                        Spacer(),
+
+                        ///Text on Image
+                        ///Footer Text
+                        Container(
+                            padding: EdgeInsets.symmetric(vertical: 8),
+                            child: Text(footerText.toUpperCase(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 26,
+                                    shadows: <Shadow>[
+                                      Shadow(
+                                        offset: Offset(2.0, 2.0),
+                                        blurRadius: 3.0,
+                                        color: Colors.black87,
                                       ),
-                                    ],
-                                  ),
-                                ))
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                                      Shadow(
+                                        offset: Offset(2.0, 2.0),
+                                        blurRadius: 8.0,
+                                        color: Colors.black87,
+                                      )
+                                    ])))
+                      ]))
+            ]),
+          )),
 
-                ///TextFiels
-                ///HeaderText
-                ///FooterText
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    onChanged: (v) {
-                      setState(() {
-                        headerText = v;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Header Text',
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    onChanged: (v) {
-                      setState(() {
-                        footerText = v;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Footer Text',
-                    ),
-                  ),
-                ),
-
-                ///Buttons
-                Row(
-                  children: [
-                    CustomFunctionalityButton(
-                      text: 'Save to Gallery',
-                    ),
-                    CustomFunctionalityButton(
-                      text: 'Share Image',
-                    ),
-                    CustomFunctionalityButton(
-                      text: 'Select Image',
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
+      ///Divider
+      Divider(
+        color: Colors.grey,
       ),
-    );
+
+      ///TextFiels
+      ///HeaderText
+      ///FooterText
+      Padding(
+          padding: EdgeInsets.all(8.0),
+          child: TextFormField(
+              onChanged: (v) {
+                setState(() {
+                  headerText = v;
+                });
+              },
+              decoration: InputDecoration(
+                labelText: 'Header Text',
+              ))),
+      Padding(
+          padding: EdgeInsets.all(8.0),
+          child: TextFormField(
+              onChanged: (v) {
+                setState(() {
+                  footerText = v;
+                });
+              },
+              decoration: InputDecoration(
+                labelText: 'Footer Text',
+              ))),
+
+      ///Buttons
+      Row(children: [
+        CustomFunctionalityButton(
+          text: 'Save to Gallery',
+          clr: Colors.blue,
+          onPress: () {
+            save();
+          },
+        ),
+        CustomFunctionalityButton(
+          text: 'Share Image',
+          clr: Colors.blue,
+          onPress: () {
+            share();
+          },
+        )
+      ])
+    ])))));
+  }
+
+  void save() async {
+    await screenshotController
+        .capture(delay: const Duration(milliseconds: 10))
+        .then((Uint8List image) async {
+      if (image != null) {
+        List<Directory> directory = await getExternalStorageDirectories();
+        String d = DateTime.now().microsecondsSinceEpoch.toString();
+
+        final imagePath =
+            await File('/storage/emulated/0/Download/$d.jpg').create();
+        await imagePath
+            .writeAsBytes(image)
+            .whenComplete(() => toast('Image Saved Successfully!'))
+            .catchError((e) {
+          print(e.toString());
+        });
+        print(imagePath);
+      }
+    });
+  }
+
+  void share() async {
+    await screenshotController
+        .capture(delay: const Duration(milliseconds: 10))
+        .then((Uint8List image) async {
+      if (image != null) {
+        final directory = await getApplicationDocumentsDirectory();
+        String d = DateTime.now().microsecondsSinceEpoch.toString();
+
+        final imagePath = await File('${directory.path}/image$d.png').create();
+        await imagePath.writeAsBytes(image);
+
+        /// Share Plugin
+        await Share.shareFiles([imagePath.path]);
+      }
+    });
   }
 }

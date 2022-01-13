@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomButton extends StatelessWidget {
-  ///For Clr
+  ///For Color
   ///Text
   String txt;
   Color clr;
@@ -32,10 +32,11 @@ class CustomButton extends StatelessWidget {
         child: Text(
           txt,
           style: GoogleFonts.lateef(
-              textStyle: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-          )),
+            textStyle: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );

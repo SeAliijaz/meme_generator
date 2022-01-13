@@ -40,6 +40,16 @@ dependencies:
   cached_network_image: ^3.2.0
   image_picker: ^0.8.4+4
   fluttertoast: ^8.0.8
+  share: ^2.0.4
+  path_provider: ^2.0.3
+  screenshot: ^1.2.3
+  image_gallery_saver: '^1.6.9'
+  permission_handler: any
+  path: ^1.6.4
+  path_provider_ex: ^1.0.1
+  flutter_file_manager: ^0.2.0
+  filesystem_picker: ^1.0.3
+  ext_storage: ^1.0.3
 
 dev_dependencies:
   flutter_test:
