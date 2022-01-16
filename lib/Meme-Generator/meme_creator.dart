@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 
+// ignore: must_be_immutable
 class MemeCreatorScreen extends StatefulWidget {
   ///final id
   static final id = '/MemeCreatorScreen';
@@ -203,6 +204,7 @@ class _MemeCreatorScreenState extends State<MemeCreatorScreen> {
         .capture(delay: const Duration(milliseconds: 10))
         .then((Uint8List image) async {
       if (image != null) {
+        // ignore: unused_local_variable
         List<Directory> directory = await getExternalStorageDirectories();
         String d = DateTime.now().microsecondsSinceEpoch.toString();
 
