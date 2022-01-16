@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:meme_generator/Main_Screens/first_screen.dart';
 
