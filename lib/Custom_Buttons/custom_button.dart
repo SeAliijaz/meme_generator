@@ -6,10 +6,11 @@ class CustomButton extends StatelessWidget {
   ///For Color
   ///Text
   String txt;
-  Color clr;
 
   ///Const
-  CustomButton({this.txt, this.clr});
+  CustomButton({
+    this.txt,
+  });
 
   ///Main Body
   @override

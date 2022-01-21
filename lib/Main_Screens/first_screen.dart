@@ -30,7 +30,6 @@ class FirstScreen extends StatelessWidget {
                     },
                     child: CustomButton(
                       txt: 'Make Memes',
-                      clr: Colors.blue,
                     ),
                   ),
 
@@ -41,7 +40,6 @@ class FirstScreen extends StatelessWidget {
                     },
                     child: CustomButton(
                       txt: 'My Memes',
-                      clr: Colors.blue,
                     ),
                   ),
                 ],
