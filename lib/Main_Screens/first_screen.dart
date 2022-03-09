@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meme_generator/Custom_Buttons/custom_button.dart';
 import 'package:meme_generator/Main_Screens/home_screen.dart';
-import 'package:meme_generator/Meme-Generator/memes_saver.dart';
 
 class FirstScreen extends StatelessWidget {
   ///Final id
@@ -38,12 +37,7 @@ class FirstScreen extends StatelessWidget {
 
                 ///Custom Button 1
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      MyHomePage.id,
-                    );
-                  },
+                  onTap: () {},
                   child: CustomButton(
                     txt: 'My Memes',
                   ),
