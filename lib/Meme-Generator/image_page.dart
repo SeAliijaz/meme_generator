@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 
+// ignore: must_be_immutable
 class ImagesPage extends StatelessWidget {
   ScreenshotController screenshotController = ScreenshotController();
 

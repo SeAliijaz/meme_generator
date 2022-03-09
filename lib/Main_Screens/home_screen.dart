@@ -40,22 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  ///Method Image picker from Camera
-  _imagePickerFromCamera() async {
-    try {
-      final pick = await picker.pickImage(source: ImageSource.camera);
-      setState(() {
-        if (pick != null) {
-          _image = File(pick.path);
-        } else {
-          toast('No Image Selected');
-        }
-      });
-    } catch (e) {
-      toast(e.toString());
-    }
-  }
-
   ///Key
   final GlobalKey repaintKey = new GlobalKey();
 
@@ -69,9 +53,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        _imagePickerFromGallery();
-      }),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.image),
+          onPressed: () {
+            _imagePickerFromGallery();
+          }),
 
       ///Body
       body: SafeArea(
@@ -80,9 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Divider(),
-
-              /// Container for Arrow Back
               Container(
                 child: Row(
                   children: [
@@ -95,174 +78,210 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              Divider(),
 
-              ///Text 1
-              Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: Text(
-                  'Meme-Generator',
-                  style: GoogleFonts.lateef(
-                      textStyle: TextStyle(
-                    fontSize: 40.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  )),
+              ///No Image
+              if (_image == null) ImageDisappearing() else SizedBox(),
+
+              ///Image Will be Shown
+              if (_image != null) ImageShown(context) else SizedBox(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Column ImageDisappearing() {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: Text(
+            'Meme-Generator',
+            style: GoogleFonts.lateef(
+                textStyle: TextStyle(
+              fontSize: 40.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            )),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: Text(
+            'Make Your Faviroute Memes',
+            style: GoogleFonts.lateef(
+                textStyle: TextStyle(
+              fontSize: 35.0,
+            )),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Column ImageShown(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: Text(
+            'Meme-Generator',
+            style: GoogleFonts.lateef(
+                textStyle: TextStyle(
+              fontSize: 40.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            )),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: Text(
+            'Make Your Faviroute Memes',
+            style: GoogleFonts.lateef(
+                textStyle: TextStyle(
+              fontSize: 35.0,
+            )),
+          ),
+        ),
+        RepaintBoundary(
+          key: repaintKey,
+          child: Screenshot(
+            controller: screenshotController,
+            child: Stack(
+              children: [
+                ///Image Shown
+                Container(
+                  decoration: BoxDecoration(),
+                  child: _image != null
+                      ? Center(
+                          child: Image.file(
+                            _image,
+                            height: 300,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        )
+                      : SizedBox(),
                 ),
-              ),
-              Divider(),
 
-              ///Text 2
-              Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: Text(
-                  'Make Your Faviroute Memes',
-                  style: GoogleFonts.lateef(
-                      textStyle: TextStyle(
-                    fontSize: 35.0,
-                  )),
-                ),
-              ),
-              Divider(),
-
-              RepaintBoundary(
-                key: repaintKey,
-                child: Screenshot(
-                  controller: screenshotController,
-                  child: Stack(
-                    children: [
-                      ///Image Shown
+                ///Text On Image
+                ///Header Text
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 300,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
                       Container(
-                        decoration: BoxDecoration(),
-                        child: _image != null
-                            ? Center(
-                                child: Image.file(
-                                  _image,
-                                  height: 300,
-                                  fit: BoxFit.fitHeight,
-                                ),
-                              )
-                            : SizedBox(),
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: Text(
+                          "${headerText}".toUpperCase(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 26,
+                            shadows: <Shadow>[
+                              Shadow(
+                                offset: Offset(2.0, 2.0),
+                                blurRadius: 3.0,
+                                color: Colors.black87,
+                              ),
+                              Shadow(
+                                offset: Offset(2.0, 2.0),
+                                blurRadius: 8.0,
+                                color: Colors.black87,
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
 
-                      ///Text On Image
-                      ///Header Text
+                      ///Spacer
+                      Spacer(),
+
+                      ///Text on Image
+                      ///Footer Text
                       Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 300,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                "${headerText}".toUpperCase(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 26,
-                                  shadows: <Shadow>[
-                                    Shadow(
-                                      offset: Offset(2.0, 2.0),
-                                      blurRadius: 3.0,
-                                      color: Colors.black87,
-                                    ),
-                                    Shadow(
-                                      offset: Offset(2.0, 2.0),
-                                      blurRadius: 8.0,
-                                      color: Colors.black87,
-                                    ),
-                                  ],
-                                ),
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: Text(
+                          "${footerText}".toUpperCase(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 26,
+                            shadows: <Shadow>[
+                              Shadow(
+                                offset: Offset(2.0, 2.0),
+                                blurRadius: 3.0,
+                                color: Colors.black87,
                               ),
-                            ),
-
-                            ///Spacer
-                            Spacer(),
-
-                            ///Text on Image
-                            ///Footer Text
-                            Container(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                "${footerText}".toUpperCase(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 26,
-                                  shadows: <Shadow>[
-                                    Shadow(
-                                      offset: Offset(2.0, 2.0),
-                                      blurRadius: 3.0,
-                                      color: Colors.black87,
-                                    ),
-                                    Shadow(
-                                      offset: Offset(2.0, 2.0),
-                                      blurRadius: 8.0,
-                                      color: Colors.black87,
-                                    ),
-                                  ],
-                                ),
+                              Shadow(
+                                offset: Offset(2.0, 2.0),
+                                blurRadius: 8.0,
+                                color: Colors.black87,
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
-              Divider(),
-
-              Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    onChanged: (v) {
-                      setState(() {
-                        headerText = v;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Header text',
-                    ),
-                  )),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: TextFormField(
-                  onChanged: (v) {
-                    setState(() {
-                      footerText = v;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Footer text',
-                  ),
-                ),
-              ),
-              Row(
-                children: [
-                  CustomFunctionalityButton(
-                    text: 'Save to Gallery',
-                    icn: Icons.save_alt,
-                    onPress: () {
-                      save();
-                    },
-                  ),
-                  CustomFunctionalityButton(
-                    text: 'Share Image',
-                    icn: Icons.share,
-                    onPress: () {
-                      share();
-                    },
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
+        Padding(
+            padding: EdgeInsets.all(12.0),
+            child: TextFormField(
+              onChanged: (v) {
+                setState(() {
+                  headerText = v;
+                });
+              },
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            )),
+        Padding(
+          padding: EdgeInsets.all(12.0),
+          child: TextFormField(
+            onChanged: (v) {
+              setState(() {
+                footerText = v;
+              });
+            },
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
+        ),
+        Row(
+          children: [
+            CustomFunctionalityButton(
+              text: 'Save to Gallery',
+              icn: Icons.save_alt,
+              onPress: () {
+                save();
+              },
+            ),
+            CustomFunctionalityButton(
+              text: 'Share Image',
+              icn: Icons.share,
+              onPress: () {
+                share();
+              },
+            ),
+          ],
+        ),
+      ],
     );
   }
 

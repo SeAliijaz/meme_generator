@@ -12,6 +12,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Future _futureGetPath;
+  // ignore: deprecated_member_use
   List<dynamic> listImagePath = List<dynamic>();
   var _permissionStatus;
 
@@ -77,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _fetchFiles(Directory dir) {
+    // ignore: deprecated_member_use
     List<dynamic> listImage = List<dynamic>();
     dir.list().forEach((element) {
       RegExp regExp =
@@ -89,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Widget> _getListImg(List<dynamic> listImagePath) {
+    // ignore: deprecated_member_use
     List<Widget> listImages = List<Widget>();
     for (var imagePath in listImagePath) {
       listImages.add(
