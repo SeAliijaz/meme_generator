@@ -72,10 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final Size s = MediaQuery.of(context).size;
-    return Scaffold(
-      ///Body
-      body: SafeArea(
-        child: Container(
+    return SafeArea(
+      child: Scaffold(
+        ///Body
+        body: Container(
           height: s.height,
           width: s.width,
           child: SingleChildScrollView(
@@ -111,50 +111,59 @@ class _HomeScreenState extends State<HomeScreen> {
  * The Part where no image is shown
 ***********************************/
   Widget ImageDisappearing() {
+    final Size s = MediaQuery.of(context).size;
     return Container(
       child: Column(
         children: [
           ///SMILEY
-          Image.asset('images/smiley1.png'),
+          Column(
+            children: [
+              Image.asset('images/smiley1.png'),
 
-          ///TEXTS
-          CustomTextWidget(
-            title: 'Meme-Generator',
-            size: 40.0,
-            fontWeight: FontWeight.bold,
-          ),
-          CustomTextWidget(
-            title: 'Make Your Faviroute Memes',
-            size: 35.0,
+              ///TEXTS
+              CustomTextWidget(
+                title: 'Meme-Generator',
+                size: 40.0,
+                fontWeight: FontWeight.bold,
+              ),
+              CustomTextWidget(
+                title: 'Make Your Faviroute Memes',
+                size: 35.0,
+              ),
+            ],
           ),
 
           ///Buttons
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          Column(
             children: [
-              Expanded(
-                child: FunctionalityButtons(
-                  text: 'From Gallery',
-                  icon: Icons.photo,
-                  iconColor: Colors.black,
-                  fontsize: 25.5,
-                  fontWeight: FontWeight.bold,
-                  onPress: () {
-                    _imagePickerFromGallery();
-                  },
-                ),
-              ),
-              Expanded(
-                child: FunctionalityButtons(
-                  text: 'From Camera',
-                  icon: Icons.camera_alt,
-                  iconColor: Colors.black,
-                  fontsize: 25.5,
-                  fontWeight: FontWeight.bold,
-                  onPress: () {
-                    _imagePickerFromCamera();
-                  },
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: FunctionalityButtons(
+                      text: 'From Gallery',
+                      icon: Icons.photo,
+                      iconColor: Colors.black,
+                      fontsize: 25.5,
+                      fontWeight: FontWeight.bold,
+                      onPress: () {
+                        _imagePickerFromGallery();
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: FunctionalityButtons(
+                      text: 'From Camera',
+                      icon: Icons.camera_alt,
+                      iconColor: Colors.black,
+                      fontsize: 25.5,
+                      fontWeight: FontWeight.bold,
+                      onPress: () {
+                        _imagePickerFromCamera();
+                      },
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -166,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
 /**********************************
  * The Part where we show the image after selection
 ***********************************/
-  Column ImageShown(BuildContext context) {
+  Widget ImageShown(BuildContext context) {
     return Column(
       children: [
         CustomTextWidget(
@@ -201,31 +210,29 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 ///Text On Image
                 ///Header Text
-                SingleChildScrollView(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 350,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        /**************
-                         * Header Text
-                        **************/
-                        Header_Footer_Text_Widget(
-                          text: "${headerText}",
-                        ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 350,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      /**************
+                       * Header Text
+                      **************/
+                      Header_Footer_Text_Widget(
+                        text: "${headerText}",
+                      ),
 
-                        ///Spacer
-                        Spacer(),
+                      ///Spacer
+                      Spacer(),
 
-                        /**************
-                         * Footer Text
-                        **************/
-                        Header_Footer_Text_Widget(
-                          text: "${footerText}",
-                        ),
-                      ],
-                    ),
+                      /**************
+                       * Footer Text
+                      **************/
+                      Header_Footer_Text_Widget(
+                        text: "${footerText}",
+                      ),
+                    ],
                   ),
                 ),
               ],
