@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.of(context).pop();
                         },
                         icon: Icon(Icons.arrow_back),
                       ),
@@ -114,6 +114,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       child: Column(
         children: [
+          ///SMILEY
+          Image.asset('images/smiley1.png'),
+
+          ///TEXTS
           CustomTextWidget(
             title: 'Meme-Generator',
             size: 40.0,
@@ -123,6 +127,8 @@ class _HomeScreenState extends State<HomeScreen> {
             title: 'Make Your Faviroute Memes',
             size: 35.0,
           ),
+
+          ///Buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

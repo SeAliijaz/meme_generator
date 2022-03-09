@@ -6,13 +6,19 @@ Widget CustomTextField(
 ) {
   return Padding(
     padding: const EdgeInsets.all(10.0),
-    child: TextFormField(
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: TextFormField(
+        onChanged: onChanged,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          hintText: "${hintText ?? "Hint-Text"}",
         ),
-        hintText: "${hintText ?? "Hint-Text"}",
       ),
     ),
   );
