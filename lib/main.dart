@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:meme_generator/Initial_Screen/splash_screen.dart';
 import 'package:meme_generator/Main_Screens/first_screen.dart';
 import 'package:meme_generator/Main_Screens/home_screen.dart';
-import 'package:meme_generator/Meme-Generator/meme_creator.dart';
 import 'package:meme_generator/Meme-Generator/memes_saver.dart';
 
 void main() {
@@ -25,9 +24,6 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
       ),
 
-      ///theme will be saved as system has
-      themeMode: ThemeMode.system,
-
       ///Home
       home: SplashScreen(),
 
@@ -36,8 +32,7 @@ class MyApp extends StatelessWidget {
         SplashScreen.id: (context) => SplashScreen(),
         HomeScreen.id: (context) => HomeScreen(),
         FirstScreen.id: (context) => FirstScreen(),
-        MemeCreatorScreen.id: (context) => MemeCreatorScreen(),
-        MyMemesSaver.id: (context) => MyMemesSaver(),
+        MyHomePage.id: (context) => MyHomePage(),
         // SplashScreen.id:(context)=> SplashScreen(),
         // SplashScreen.id:(context)=> SplashScreen(),
         // SplashScreen.id:(context)=> SplashScreen(),

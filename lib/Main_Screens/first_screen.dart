@@ -11,41 +11,48 @@ class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: SafeArea(
-          child: Container(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'images/smiley1.png',
-                  ),
-                  SizedBox(height: 10),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: SafeArea(
+        child: Container(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'images/smiley1.png',
+                ),
+                SizedBox(height: 10),
 
-                  ///Custom Button 1
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, HomeScreen.id);
-                    },
-                    child: CustomButton(
-                      txt: 'Make Memes',
-                    ),
+                ///Custom Button 1
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      HomeScreen.id,
+                    );
+                  },
+                  child: CustomButton(
+                    txt: 'Make Memes',
                   ),
+                ),
 
-                  ///Custom Button 1
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, MyMemesSaver.id);
-                    },
-                    child: CustomButton(
-                      txt: 'My Memes',
-                    ),
+                ///Custom Button 1
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      MyHomePage.id,
+                    );
+                  },
+                  child: CustomButton(
+                    txt: 'My Memes',
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
