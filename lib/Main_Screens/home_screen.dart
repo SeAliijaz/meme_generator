@@ -294,7 +294,6 @@ class _HomeScreenState extends State<HomeScreen> {
         .capture(delay: const Duration(milliseconds: 10))
         .then((Uint8List image) async {
       if (image != null) {
-        // ignore: unused_local_variable
         List<Directory> directory = await getExternalStorageDirectories();
         String d = DateTime.now().microsecondsSinceEpoch.toString();
 
@@ -311,7 +310,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  ///Share Function
+  ///Share function
   void share() async {
     await screenshotController
         .capture(delay: const Duration(milliseconds: 10))
@@ -323,7 +322,7 @@ class _HomeScreenState extends State<HomeScreen> {
         final imagePath = await File('${directory.path}/image$d.png').create();
         await imagePath.writeAsBytes(image);
 
-        ///Share
+        /// Share Plugin
         await Share.shareFiles([imagePath.path]);
       }
     });
