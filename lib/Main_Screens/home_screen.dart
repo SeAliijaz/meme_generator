@@ -52,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Size s = MediaQuery.of(context).size;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.image),
@@ -60,32 +61,30 @@ class _HomeScreenState extends State<HomeScreen> {
           }),
 
       ///Body
-      body: SafeArea(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(Icons.arrow_back),
-                    ),
-                  ],
-                ),
+      body: Container(
+        height: s.height,
+        width: s.width,
+        child: Column(
+          children: [
+            Container(
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back),
+                  ),
+                ],
               ),
+            ),
 
-              ///No Image
-              if (_image == null) ImageDisappearing() else SizedBox(),
+            ///No Image
+            if (_image == null) ImageDisappearing() else SizedBox(),
 
-              ///Image Will be Shown
-              if (_image != null) ImageShown(context) else SizedBox(),
-            ],
-          ),
+            ///Image Will be Shown
+            if (_image != null) ImageShown(context) else SizedBox(),
+          ],
         ),
       ),
     );
@@ -234,34 +233,21 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        Padding(
-            padding: EdgeInsets.all(12.0),
-            child: TextFormField(
-              onChanged: (v) {
-                setState(() {
-                  headerText = v;
-                });
-              },
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            )),
-        Padding(
-          padding: EdgeInsets.all(12.0),
-          child: TextFormField(
-            onChanged: (v) {
-              setState(() {
-                footerText = v;
-              });
-            },
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-          ),
+        CustomTextField(
+          'Header Text',
+          (v) {
+            setState(() {
+              headerText = v;
+            });
+          },
+        ),
+        CustomTextField(
+          'Foofter Text',
+          (v) {
+            setState(() {
+              footerText = v;
+            });
+          },
         ),
         Row(
           children: [
@@ -282,6 +268,25 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ],
+    );
+  }
+
+  Widget CustomTextField(
+    String hintText,
+    Function onChanged,
+  ) {
+    return Padding(
+      padding: EdgeInsets.all(12.0),
+      child: Container(
+        color: Colors.grey.shade200,
+        child: TextFormField(
+          onChanged: onChanged,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: "${hintText ?? "Hint-Text"}",
+          ),
+        ),
+      ),
     );
   }
 
