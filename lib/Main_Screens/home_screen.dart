@@ -301,9 +301,19 @@ class _HomeScreenState extends State<HomeScreen> {
             await File('/storage/emulated/0/Download/$d.jpg').create();
         await imagePath
             .writeAsBytes(image)
-            .whenComplete(() => toast('Image Saved Successfully!'))
+            .whenComplete(
+              () => print(
+                'Image Saved Successfully!',
+              ),
+            )
+            .whenComplete(
+              () => toast('Image Saved Successfully!'),
+            )
             .catchError((e) {
-          print(e.toString());
+          print(
+            e.toString(),
+          );
+          toast(e.toString());
         });
         print(imagePath);
       }
@@ -318,7 +328,6 @@ class _HomeScreenState extends State<HomeScreen> {
       if (image != null) {
         final directory = await getApplicationDocumentsDirectory();
         String d = DateTime.now().microsecondsSinceEpoch.toString();
-
         final imagePath = await File('${directory.path}/image$d.png').create();
         await imagePath.writeAsBytes(image);
 
