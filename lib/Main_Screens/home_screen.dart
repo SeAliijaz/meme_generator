@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meme_generator/Constants/constants.dart';
 import 'package:meme_generator/Custom_Buttons/custom_function_button.dart';
+import 'package:meme_generator/Widgets/functionality_button.dart';
+import 'package:meme_generator/Widgets/header_footer_texts.dart';
+import 'package:meme_generator/Widgets/text_field.dart';
+import 'package:meme_generator/Widgets/text_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
@@ -40,6 +43,22 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  ///Method Image Picker from Gallery
+  _imagePickerFromCamera() async {
+    try {
+      final pick = await picker.pickImage(source: ImageSource.camera);
+      setState(() {
+        if (pick != null) {
+          _image = File(pick.path);
+        } else {
+          toast('No Image Selected');
+        }
+      });
+    } catch (e) {
+      toast(e.toString());
+    }
+  }
+
   ///Key
   final GlobalKey repaintKey = new GlobalKey();
 
@@ -54,96 +73,106 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final Size s = MediaQuery.of(context).size;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.image),
-          onPressed: () {
-            _imagePickerFromGallery();
-          }),
-
       ///Body
-      body: Container(
-        height: s.height,
-        width: s.width,
-        child: Column(
-          children: [
-            Container(
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.arrow_back),
+      body: SafeArea(
+        child: Container(
+          height: s.height,
+          width: s.width,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.arrow_back),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+
+                ///No Image
+                if (_image == null) ImageDisappearing() else SizedBox(),
+
+                ///Image Will be Shown
+                if (_image != null) ImageShown(context) else SizedBox(),
+              ],
             ),
-
-            ///No Image
-            if (_image == null) ImageDisappearing() else SizedBox(),
-
-            ///Image Will be Shown
-            if (_image != null) ImageShown(context) else SizedBox(),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  Column ImageDisappearing() {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 15),
-          child: Text(
-            'Meme-Generator',
-            style: GoogleFonts.lateef(
-                textStyle: TextStyle(
-              fontSize: 40.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            )),
+/**********************************
+ * The Part where no image is shown
+***********************************/
+  Widget ImageDisappearing() {
+    return Container(
+      child: Column(
+        children: [
+          CustomTextWidget(
+            title: 'Meme-Generator',
+            size: 40.0,
+            fontWeight: FontWeight.bold,
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 15),
-          child: Text(
-            'Make Your Faviroute Memes',
-            style: GoogleFonts.lateef(
-                textStyle: TextStyle(
-              fontSize: 35.0,
-            )),
+          CustomTextWidget(
+            title: 'Make Your Faviroute Memes',
+            size: 35.0,
           ),
-        ),
-      ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: FunctionalityButtons(
+                  text: 'From Gallery',
+                  icon: Icons.photo,
+                  iconColor: Colors.black,
+                  fontsize: 25.5,
+                  fontWeight: FontWeight.bold,
+                  onPress: () {
+                    _imagePickerFromGallery();
+                  },
+                ),
+              ),
+              Expanded(
+                child: FunctionalityButtons(
+                  text: 'From Camera',
+                  icon: Icons.camera_alt,
+                  iconColor: Colors.black,
+                  fontsize: 25.5,
+                  fontWeight: FontWeight.bold,
+                  onPress: () {
+                    _imagePickerFromCamera();
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
+/**********************************
+ * The Part where we show the image after selection
+***********************************/
   Column ImageShown(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 15),
-          child: Text(
-            'Meme-Generator',
-            style: GoogleFonts.lateef(
-                textStyle: TextStyle(
-              fontSize: 40.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            )),
-          ),
+        CustomTextWidget(
+          title: 'Meme-Generator',
+          size: 40.0,
+          fontWeight: FontWeight.bold,
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 15),
-          child: Text(
-            'Make Your Faviroute Memes',
-            style: GoogleFonts.lateef(
-                textStyle: TextStyle(
-              fontSize: 35.0,
-            )),
-          ),
+        CustomTextWidget(
+          title: 'Make Your Faviroute Memes',
+          size: 35.0,
         ),
+        Divider(),
         RepaintBoundary(
           key: repaintKey,
           child: Screenshot(
@@ -157,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? Center(
                           child: Image.file(
                             _image,
-                            height: 300,
+                            height: 350,
                             fit: BoxFit.fitHeight,
                           ),
                         )
@@ -166,73 +195,38 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 ///Text On Image
                 ///Header Text
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 300,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        child: Text(
-                          "${headerText}".toUpperCase(),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 26,
-                            shadows: <Shadow>[
-                              Shadow(
-                                offset: Offset(2.0, 2.0),
-                                blurRadius: 3.0,
-                                color: Colors.black87,
-                              ),
-                              Shadow(
-                                offset: Offset(2.0, 2.0),
-                                blurRadius: 8.0,
-                                color: Colors.black87,
-                              ),
-                            ],
-                          ),
+                SingleChildScrollView(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 350,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        /**************
+                         * Header Text
+                        **************/
+                        Header_Footer_Text_Widget(
+                          text: "${headerText}",
                         ),
-                      ),
 
-                      ///Spacer
-                      Spacer(),
+                        ///Spacer
+                        Spacer(),
 
-                      ///Text on Image
-                      ///Footer Text
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        child: Text(
-                          "${footerText}".toUpperCase(),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 26,
-                            shadows: <Shadow>[
-                              Shadow(
-                                offset: Offset(2.0, 2.0),
-                                blurRadius: 3.0,
-                                color: Colors.black87,
-                              ),
-                              Shadow(
-                                offset: Offset(2.0, 2.0),
-                                blurRadius: 8.0,
-                                color: Colors.black87,
-                              ),
-                            ],
-                          ),
+                        /**************
+                         * Footer Text
+                        **************/
+                        Header_Footer_Text_Widget(
+                          text: "${footerText}",
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
         ),
+        Divider(),
         CustomTextField(
           'Header Text',
           (v) {
@@ -248,6 +242,23 @@ class _HomeScreenState extends State<HomeScreen> {
               footerText = v;
             });
           },
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              right: 15,
+              top: 5,
+              bottom: 5,
+            ),
+            child: Container(
+              color: Colors.grey.shade200,
+              child: TextButton(
+                onPressed: () {},
+                child: Text('Select again!'),
+              ),
+            ),
+          ),
         ),
         Row(
           children: [
@@ -268,25 +279,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ],
-    );
-  }
-
-  Widget CustomTextField(
-    String hintText,
-    Function onChanged,
-  ) {
-    return Padding(
-      padding: EdgeInsets.all(12.0),
-      child: Container(
-        color: Colors.grey.shade200,
-        child: TextFormField(
-          onChanged: onChanged,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: "${hintText ?? "Hint-Text"}",
-          ),
-        ),
-      ),
     );
   }
 
