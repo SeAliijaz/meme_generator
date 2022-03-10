@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meme_generator/Constants/constants.dart';
 import 'package:meme_generator/Custom_Buttons/custom_function_button.dart';
+import 'package:meme_generator/Styling_Class/text_styles.dart';
 import 'package:meme_generator/Widgets/functionality_button.dart';
 import 'package:meme_generator/Widgets/header_footer_texts.dart';
 import 'package:meme_generator/Widgets/text_field.dart';
@@ -111,7 +113,6 @@ class _HomeScreenState extends State<HomeScreen> {
  * The Part where no image is shown
 ***********************************/
   Widget ImageDisappearing() {
-    final Size s = MediaQuery.of(context).size;
     return Container(
       child: Column(
         children: [
@@ -249,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
         CustomTextField(
-          'Foofter Text',
+          'Footer Text',
           (v) {
             setState(() {
               footerText = v;
@@ -259,16 +260,22 @@ class _HomeScreenState extends State<HomeScreen> {
         Align(
           alignment: Alignment.centerRight,
           child: Padding(
-            padding: const EdgeInsets.only(
-              right: 15,
-              top: 5,
-              bottom: 5,
-            ),
+            padding: const EdgeInsets.all(10.0),
             child: Container(
-              color: Colors.grey.shade200,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(50),
+              ),
               child: TextButton(
-                onPressed: () {},
-                child: Text('Select again!'),
+                onPressed: () {
+                  _showBottomSheet(context);
+                },
+                child: Center(
+                  child: Text(
+                    'Select again!',
+                    style: EchoStyling.bottomSheetStyle,
+                  ),
+                ),
               ),
             ),
           ),
@@ -301,6 +308,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .capture(delay: const Duration(milliseconds: 10))
         .then((Uint8List image) async {
       if (image != null) {
+        // ignore: unused_local_variable
         List<Directory> directory = await getExternalStorageDirectories();
         String d = DateTime.now().microsecondsSinceEpoch.toString();
 
@@ -342,5 +350,41 @@ class _HomeScreenState extends State<HomeScreen> {
         await Share.shareFiles([imagePath.path]);
       }
     });
+  }
+
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Wrap(
+          children: [
+            ListTile(
+              textColor: Colors.black,
+              iconColor: Colors.black,
+              onTap: () {
+                _imagePickerFromGallery();
+              },
+              leading: Icon(Icons.photo),
+              title: Text(
+                'Select image from Gallery',
+                style: EchoStyling.bottomSheetStyle,
+              ),
+            ),
+            ListTile(
+              textColor: Colors.black,
+              iconColor: Colors.black,
+              onTap: () {
+                _imagePickerFromCamera();
+              },
+              leading: Icon(Icons.camera_alt),
+              title: Text(
+                'Select image from Camera',
+                style: EchoStyling.bottomSheetStyle,
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

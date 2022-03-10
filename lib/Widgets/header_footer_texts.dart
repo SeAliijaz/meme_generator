@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class Header_Footer_Text_Widget extends StatelessWidget {
   ///var
   String text;
