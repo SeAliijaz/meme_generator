@@ -14,7 +14,22 @@ class MyApp extends StatelessWidget {
       ///title
       title: 'Meme-Generator',
 
-      ///DebugShowCheckedModeBanner
+      /* light theme settings */
+      theme: ThemeData(
+        brightness: Brightness.light,
+      ),
+
+      /* dark theme settings */
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+      ),
+
+      /*ThemeMode.system to follow system theme, 
+      ThemeMode.light for light theme, 
+      ThemeMode.dark for dark theme*/
+      themeMode: ThemeMode.dark,
+
+      ///debugShowCheckedModeBanner
       debugShowCheckedModeBanner: false,
 
       ///Home
