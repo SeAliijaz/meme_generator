@@ -18,7 +18,7 @@ class FirstScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'images/smiley1.png',
+                  'images/smiley2.png',
                 ),
                 SizedBox(height: 10),
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meme_generator/Constants/constants.dart';
+import 'package:meme_generator/Custom_Buttons/custom_button.dart';
 import 'package:meme_generator/Custom_Buttons/custom_function_button.dart';
 import 'package:meme_generator/Styling_Class/text_styles.dart';
 import 'package:meme_generator/Widgets/functionality_button.dart';
@@ -118,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           ///SMILEY
           Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset('images/smiley1.png'),
 
@@ -177,128 +179,112 @@ class _HomeScreenState extends State<HomeScreen> {
  * The Part where we show the image after selection
 ***********************************/
   Widget ImageShown(BuildContext context) {
-    return Column(
-      children: [
-        CustomTextWidget(
-          title: 'Meme-Generator',
-          size: 40.0,
-          fontWeight: FontWeight.bold,
-        ),
-        CustomTextWidget(
-          title: 'Make Your Faviroute Memes',
-          size: 35.0,
-        ),
-        Divider(),
-        RepaintBoundary(
-          key: repaintKey,
-          child: Screenshot(
-            controller: screenshotController,
-            child: Stack(
-              children: [
-                ///Image Shown
-                Container(
-                  decoration: BoxDecoration(),
-                  child: _image != null
-                      ? Center(
-                          child: Image.file(
-                            _image,
-                            height: 350,
-                            fit: BoxFit.fitHeight,
-                          ),
-                        )
-                      : SizedBox(),
-                ),
-
-                ///Text On Image
-                ///Header Text
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 350,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      /**************
-                       * Header Text
-                      **************/
-                      Header_Footer_Text_Widget(
-                        text: "${headerText}",
-                      ),
-
-                      ///Spacer
-                      Spacer(),
-
-                      /**************
-                       * Footer Text
-                      **************/
-                      Header_Footer_Text_Widget(
-                        text: "${footerText}",
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CustomTextWidget(
+            title: 'Meme-Generator',
+            size: 40.0,
+            fontWeight: FontWeight.bold,
           ),
-        ),
-        Divider(),
-        CustomTextField(
-          'Header Text',
-          (v) {
-            setState(() {
-              headerText = v;
-            });
-          },
-        ),
-        CustomTextField(
-          'Footer Text',
-          (v) {
-            setState(() {
-              footerText = v;
-            });
-          },
-        ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: TextButton(
-                onPressed: () {
-                  _showBottomSheet(context);
-                },
-                child: Center(
-                  child: Text(
-                    'Select again!',
-                    style: EchoStyling.bottomSheetStyle,
+          CustomTextWidget(
+            title: 'Make Your Faviroute Memes',
+            size: 35.0,
+          ),
+          Divider(),
+          RepaintBoundary(
+            key: repaintKey,
+            child: Screenshot(
+              controller: screenshotController,
+              child: Stack(
+                children: [
+                  ///Image Shown
+                  Container(
+                    decoration: BoxDecoration(),
+                    child: _image != null
+                        ? Center(
+                            child: Image.file(
+                              _image,
+                              height: 350,
+                              fit: BoxFit.fitHeight,
+                            ),
+                          )
+                        : SizedBox(),
                   ),
-                ),
+
+                  ///Text On Image
+                  ///Header Text
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 350,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        /**************
+                         * Header Text
+                        **************/
+                        Header_Footer_Text_Widget(
+                          text: "${headerText}",
+                        ),
+
+                        ///Spacer
+                        Spacer(),
+
+                        /**************
+                         * Footer Text
+                        **************/
+                        Header_Footer_Text_Widget(
+                          text: "${footerText}",
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-        ),
-        Row(
-          children: [
-            CustomFunctionalityButton(
-              text: 'Save to Gallery',
-              icn: Icons.save_alt,
-              onPress: () {
-                save();
-              },
-            ),
-            CustomFunctionalityButton(
-              text: 'Share Image',
-              icn: Icons.share,
-              onPress: () {
-                share();
-              },
-            ),
-          ],
-        ),
-      ],
+          Divider(),
+          CustomTextField(
+            'Header Text',
+            (v) {
+              setState(() {
+                headerText = v;
+              });
+            },
+          ),
+          CustomTextField(
+            'Footer Text',
+            (v) {
+              setState(() {
+                footerText = v;
+              });
+            },
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: CustomFunctionalityButton(
+                  text: 'Save to Gallery',
+                  icn: Icons.save_alt,
+                  onPress: () {
+                    save();
+                  },
+                ),
+              ),
+              Expanded(
+                child: CustomFunctionalityButton(
+                  text: 'Share Image',
+                  icn: Icons.share,
+                  onPress: () {
+                    share();
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

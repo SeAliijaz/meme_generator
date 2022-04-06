@@ -18,37 +18,35 @@ class CustomFunctionalityButton extends StatelessWidget {
   ///main body
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: EdgeInsets.all(12.0),
-        child: InkWell(
-          onTap: onPress,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3),
-                ),
-              ],
-            ),
-            child: TextButton.icon(
-              onPressed: onPress,
-              icon: Icon(
-                icn,
-                color: Colors.black,
+    return Padding(
+      padding: EdgeInsets.all(12.0),
+      child: InkWell(
+        onTap: onPress,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3),
               ),
-              label: Text(
-                "${text}",
-                style: GoogleFonts.lateef(
-                  textStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+            ],
+          ),
+          child: TextButton.icon(
+            onPressed: onPress,
+            icon: Icon(
+              icn,
+              color: Colors.black,
+            ),
+            label: Text(
+              "${text}",
+              style: GoogleFonts.lateef(
+                textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
