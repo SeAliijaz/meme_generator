@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:meme_generator/Main_Screens/image_preview_screen.dart';
+import 'package:meme_generator/Images_Screen/image_preview_screen.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class MyHomePage extends StatefulWidget {

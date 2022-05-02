@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meme_generator/Custom_Buttons/custom_button.dart';
 import 'package:meme_generator/Main_Screens/home_screen.dart';
-import 'package:meme_generator/Main_Screens/my_memes_screen.dart';
+import 'package:meme_generator/Images_Screen/my_memes_screen.dart';
 
 class FirstScreen extends StatelessWidget {
   ///Final id
