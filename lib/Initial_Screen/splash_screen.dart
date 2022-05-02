@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     _timer = Timer(
-      Duration(seconds: 5),
+      Duration(seconds: 3),
       () async {
         await Navigator.pushReplacementNamed(
           context,

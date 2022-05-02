@@ -9,11 +9,7 @@ Widget CustomTextField(
     child: TextFormField(
       onChanged: onChanged,
       decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.grey.shade200,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        border: InputBorder.none,
         hintText: "${hintText ?? "Hint-Text"}",
       ),
     ),

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       builder: ((context, orientation, deviceType) {
         return MaterialApp(
           ///title
-          title: 'Meme-Generator',
+          title: 'Meme Generator',
 
           /* light theme settings */
           theme: ThemeData(
@@ -43,14 +43,6 @@ class MyApp extends StatelessWidget {
             SplashScreen.id: (context) => SplashScreen(),
             HomeScreen.id: (context) => HomeScreen(),
             FirstScreen.id: (context) => FirstScreen(),
-            // SplashScreen.id:(context)=> SplashScreen(),
-            // SplashScreen.id:(context)=> SplashScreen(),
-            // SplashScreen.id:(context)=> SplashScreen(),
-            // SplashScreen.id:(context)=> SplashScreen(),
-            // SplashScreen.id:(context)=> SplashScreen(),
-            // SplashScreen.id:(context)=> SplashScreen(),
-            // SplashScreen.id:(context)=> SplashScreen(),
-            // SplashScreen.id:(context)=> SplashScreen(),
           },
         );
       }),

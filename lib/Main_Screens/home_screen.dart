@@ -114,63 +114,70 @@ class _HomeScreenState extends State<HomeScreen> {
  * The Part where no image is shown
 ***********************************/
   Widget ImageDisappearing() {
+    final Size s = MediaQuery.of(context).size;
     return Container(
-      child: Column(
-        children: [
-          ///SMILEY
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('images/smiley1.png'),
+      height: s.height * 0.70,
+      width: s.width,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ///SMILEY
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('images/smiley1.png'),
 
-              ///TEXTS
-              CustomTextWidget(
-                title: 'Meme-Generator',
-                size: 40.0,
-                fontWeight: FontWeight.bold,
-              ),
-              CustomTextWidget(
-                title: 'Make Your Faviroute Memes',
-                size: 35.0,
-              ),
-            ],
-          ),
+                ///TEXTS
+                CustomTextWidget(
+                  title: 'Meme-Generator',
+                  size: 40.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                CustomTextWidget(
+                  title: 'Make Your Faviroute Memes',
+                  size: 35.0,
+                ),
+              ],
+            ),
 
-          ///Buttons
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: FunctionalityButtons(
-                      text: 'From Gallery',
-                      icon: Icons.photo,
-                      iconColor: Colors.black,
-                      fontsize: 25.5,
-                      fontWeight: FontWeight.bold,
-                      onPress: () {
-                        _imagePickerFromGallery();
-                      },
+            ///Buttons
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: FunctionalityButtons(
+                        text: 'From Gallery',
+                        icon: Icons.photo,
+                        iconColor: Colors.black,
+                        fontsize: 25.5,
+                        fontWeight: FontWeight.bold,
+                        onPress: () {
+                          _imagePickerFromGallery();
+                        },
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: FunctionalityButtons(
-                      text: 'From Camera',
-                      icon: Icons.camera_alt,
-                      iconColor: Colors.black,
-                      fontsize: 25.5,
-                      fontWeight: FontWeight.bold,
-                      onPress: () {
-                        _imagePickerFromCamera();
-                      },
+                    Expanded(
+                      child: FunctionalityButtons(
+                        text: 'From Camera',
+                        icon: Icons.camera_alt,
+                        iconColor: Colors.black,
+                        fontsize: 25.5,
+                        fontWeight: FontWeight.bold,
+                        onPress: () {
+                          _imagePickerFromCamera();
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -192,7 +199,11 @@ class _HomeScreenState extends State<HomeScreen> {
             title: 'Make Your Faviroute Memes',
             size: 35.0,
           ),
-          Divider(),
+          Divider(
+            height: 1,
+            color: Colors.black,
+          ),
+          SizedBox(height: 5),
           RepaintBoundary(
             key: repaintKey,
             child: Screenshot(
@@ -206,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ? Center(
                             child: Image.file(
                               _image,
-                              height: 350,
+                              height: 400,
                               fit: BoxFit.fitHeight,
                             ),
                           )
@@ -244,22 +255,46 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          Divider(),
-          CustomTextField(
-            'Header Text',
-            (v) {
-              setState(() {
-                headerText = v;
-              });
-            },
+          SizedBox(height: 5),
+          Divider(
+            height: 1,
+            color: Colors.black,
           ),
-          CustomTextField(
-            'Footer Text',
-            (v) {
-              setState(() {
-                footerText = v;
-              });
-            },
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 5,
+              vertical: 5,
+            ),
+            child: CustomTextField(
+              'Header Text',
+              (v) {
+                setState(() {
+                  headerText = v;
+                });
+              },
+            ),
+          ),
+          Divider(
+            height: 1,
+            color: Colors.black,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 5,
+              horizontal: 5,
+            ),
+            child: CustomTextField(
+              'Footer Text',
+              (v) {
+                setState(() {
+                  footerText = v;
+                });
+              },
+            ),
+          ),
+          Divider(
+            height: 1,
+            color: Colors.black,
           ),
           Row(
             children: [
@@ -353,7 +388,7 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: Icon(Icons.photo),
               title: Text(
                 'Select image from Gallery',
-                style: EchoStyling.bottomSheetStyle,
+                style: EchoStyles.bottomSheetStyle,
               ),
             ),
             ListTile(
@@ -365,7 +400,7 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: Icon(Icons.camera_alt),
               title: Text(
                 'Select image from Camera',
-                style: EchoStyling.bottomSheetStyle,
+                style: EchoStyles.bottomSheetStyle,
               ),
             ),
           ],
