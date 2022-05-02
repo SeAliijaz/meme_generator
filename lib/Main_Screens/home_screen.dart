@@ -1,10 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meme_generator/Constants/constants.dart';
-import 'package:meme_generator/Custom_Buttons/custom_button.dart';
 import 'package:meme_generator/Custom_Buttons/custom_function_button.dart';
 import 'package:meme_generator/Styling_Class/text_styles.dart';
 import 'package:meme_generator/Widgets/functionality_button.dart';
@@ -217,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ? Center(
                             child: Image.file(
                               _image,
-                              height: 400,
+                              height: 350,
                               fit: BoxFit.fitHeight,
                             ),
                           )
