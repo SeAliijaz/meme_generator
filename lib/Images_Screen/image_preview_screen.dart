@@ -1,11 +1,14 @@
-import 'dart:typed_data';
-import 'package:flutter/material.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:share/share.dart';
+import "dart:typed_data";
+import "package:flutter/material.dart";
+import "package:google_fonts/google_fonts.dart";
+import "package:screenshot/screenshot.dart";
+import "package:share/share.dart";
 
 class ImagePreviewScreen extends StatelessWidget {
+  ///ScreenshotController
   ScreenshotController screenshotController = ScreenshotController();
 
+  ///Getting ImagesPath
   final imagepath;
   ImagePreviewScreen(this.imagepath);
   @override
@@ -13,7 +16,11 @@ class ImagePreviewScreen extends StatelessWidget {
     final Size s = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          title: Text("Image Preview"),
+          backgroundColor: Theme.of(context).backgroundColor,
+          title: Text(
+            "Image Preview",
+            style: GoogleFonts.salsa(),
+          ),
           centerTitle: true,
         ),
         body: Container(

@@ -1,21 +1,20 @@
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:meme_generator/Constants/constants.dart';
-import 'package:meme_generator/Custom_Buttons/custom_function_button.dart';
-import 'package:meme_generator/Styling_Class/text_styles.dart';
-import 'package:meme_generator/Widgets/functionality_button.dart';
-import 'package:meme_generator/Widgets/header_footer_texts.dart';
-import 'package:meme_generator/Widgets/text_field.dart';
-import 'package:meme_generator/Widgets/text_widget.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:share/share.dart';
+import "dart:io";
+import "dart:typed_data";
+import "package:flutter/material.dart";
+import 'package:google_fonts/google_fonts.dart';
+import "package:image_picker/image_picker.dart";
+import "package:meme_generator/Constants/constants.dart";
+import 'package:meme_generator/Custom_Buttons/functionality_button.dart';
+import "package:meme_generator/Widgets/header_footer_texts.dart";
+import "package:meme_generator/Widgets/text_field.dart";
+import "package:meme_generator/Widgets/text_widget.dart";
+import "package:path_provider/path_provider.dart";
+import "package:screenshot/screenshot.dart";
+import "package:share/share.dart";
 
 class HomeScreen extends StatefulWidget {
   ///Final id
-  static final id = '/HomeScreen';
+  static final String id = "/HomeScreen";
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -36,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (pick != null) {
           _image = File(pick.path);
         } else {
-          toast('No Image Selected');
+          toast("No Image Selected");
         }
       });
     } catch (e) {
@@ -52,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (pick != null) {
           _image = File(pick.path);
         } else {
-          toast('No Image Selected');
+          toast("No Image Selected");
         }
       });
     } catch (e) {
@@ -75,6 +74,24 @@ class _HomeScreenState extends State<HomeScreen> {
     final Size s = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        appBar: _image == null
+            ? AppBar(
+                backgroundColor: Theme.of(context).backgroundColor,
+                title: Text(
+                  "Select image to make meme",
+                  style: GoogleFonts.salsa(),
+                ),
+                centerTitle: true,
+              )
+            : AppBar(
+                backgroundColor: Theme.of(context).backgroundColor,
+                title: Text(
+                  "Make Your meme".toUpperCase(),
+                  style: GoogleFonts.salsa(),
+                ),
+                centerTitle: true,
+              ),
+
         ///Body
         body: Container(
           height: s.height,
@@ -82,19 +99,6 @@ class _HomeScreenState extends State<HomeScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        icon: Icon(Icons.arrow_back),
-                      ),
-                    ],
-                  ),
-                ),
-
                 ///No Image
                 if (_image == null) ImageDisappearing() else SizedBox(),
 
@@ -124,16 +128,16 @@ class _HomeScreenState extends State<HomeScreen> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('images/smiley1.png'),
+                Image.asset("images/smiley1.png"),
 
                 ///TEXTS
                 CustomTextWidget(
-                  title: 'Meme-Generator',
+                  title: "Meme-Generator",
                   size: 40.0,
                   fontWeight: FontWeight.bold,
                 ),
                 CustomTextWidget(
-                  title: 'Make Your Faviroute Memes',
+                  title: "Make Your Faviroute Memes",
                   size: 35.0,
                 ),
               ],
@@ -148,11 +152,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Expanded(
                       child: FunctionalityButtons(
-                        text: 'From Gallery',
+                        text: "From Gallery",
                         icon: Icons.photo,
                         iconColor: Colors.black,
-                        fontsize: 25.5,
-                        fontWeight: FontWeight.bold,
+                        fontsize: 20,
                         onPress: () {
                           _imagePickerFromGallery();
                         },
@@ -160,11 +163,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Expanded(
                       child: FunctionalityButtons(
-                        text: 'From Camera',
+                        text: "From Camera",
                         icon: Icons.camera_alt,
                         iconColor: Colors.black,
-                        fontsize: 25.5,
-                        fontWeight: FontWeight.bold,
+                        fontsize: 20,
                         onPress: () {
                           _imagePickerFromCamera();
                         },
@@ -189,12 +191,12 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomTextWidget(
-            title: 'Meme-Generator',
+            title: "Meme-Generator",
             size: 40.0,
             fontWeight: FontWeight.bold,
           ),
           CustomTextWidget(
-            title: 'Make Your Faviroute Memes',
+            title: "Make Your Faviroute Memes",
             size: 35.0,
           ),
           Divider(
@@ -219,7 +221,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               fit: BoxFit.fitHeight,
                             ),
                           )
-                        : SizedBox(),
+                        : Center(
+                            child: Text(
+                              "No Image Selected",
+                              style: GoogleFonts.salsa(
+                                textStyle: TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
                   ),
 
                   ///Text On Image
@@ -264,7 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
               vertical: 5,
             ),
             child: CustomTextField(
-              'Header Text',
+              "Header Text",
               (v) {
                 setState(() {
                   headerText = v;
@@ -282,7 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
               horizontal: 5,
             ),
             child: CustomTextField(
-              'Footer Text',
+              "Footer Text",
               (v) {
                 setState(() {
                   footerText = v;
@@ -295,20 +306,23 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Colors.black,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: CustomFunctionalityButton(
-                  text: 'Save to Gallery',
-                  icn: Icons.save_alt,
+                child: FunctionalityButtons(
+                  text: "Save to Gallery",
+                  icon: Icons.save_alt,
+                  fontsize: 17,
                   onPress: () {
                     save();
                   },
                 ),
               ),
               Expanded(
-                child: CustomFunctionalityButton(
-                  text: 'Share Image',
-                  icn: Icons.share,
+                child: FunctionalityButtons(
+                  text: "Share Image",
+                  icon: Icons.share,
+                  fontsize: 17,
                   onPress: () {
                     share();
                   },
@@ -327,26 +341,20 @@ class _HomeScreenState extends State<HomeScreen> {
         .capture(delay: const Duration(milliseconds: 10))
         .then((Uint8List image) async {
       if (image != null) {
-        // ignore: unused_local_variable
         List<Directory> directory = await getExternalStorageDirectories();
         String d = DateTime.now().microsecondsSinceEpoch.toString();
 
+        ///Image path where image will be stored in mobile
         final imagePath =
-            await File('/storage/emulated/0/Download/$d.jpg').create();
+            await File("/storage/emulated/0/Download/$d.jpg").create();
         await imagePath
             .writeAsBytes(image)
             .whenComplete(
-              () => print(
-                'Image Saved Successfully!',
-              ),
+              () => print("Image Saved Successfully!"),
             )
-            .whenComplete(
-              () => toast('Image Saved Successfully!'),
-            )
+            .whenComplete(() => toast("Image Saved Successfully!"))
             .catchError((e) {
-          print(
-            e.toString(),
-          );
+          print(e.toString());
           toast(e.toString());
         });
         print(imagePath);
@@ -362,48 +370,12 @@ class _HomeScreenState extends State<HomeScreen> {
       if (image != null) {
         final directory = await getApplicationDocumentsDirectory();
         String d = DateTime.now().microsecondsSinceEpoch.toString();
-        final imagePath = await File('${directory.path}/image$d.png').create();
+        final imagePath = await File("${directory.path}/image$d.png").create();
         await imagePath.writeAsBytes(image);
 
         /// Share Plugin
         await Share.shareFiles([imagePath.path]);
       }
     });
-  }
-
-  void _showBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Wrap(
-          children: [
-            ListTile(
-              textColor: Colors.black,
-              iconColor: Colors.black,
-              onTap: () {
-                _imagePickerFromGallery();
-              },
-              leading: Icon(Icons.photo),
-              title: Text(
-                'Select image from Gallery',
-                style: EchoStyles.bottomSheetStyle,
-              ),
-            ),
-            ListTile(
-              textColor: Colors.black,
-              iconColor: Colors.black,
-              onTap: () {
-                _imagePickerFromCamera();
-              },
-              leading: Icon(Icons.camera_alt),
-              title: Text(
-                'Select image from Camera',
-                style: EchoStyles.bottomSheetStyle,
-              ),
-            ),
-          ],
-        );
-      },
-    );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 Widget CustomTextField(
   String hintText,
@@ -10,7 +10,7 @@ Widget CustomTextField(
       onChanged: onChanged,
       decoration: InputDecoration(
         border: InputBorder.none,
-        hintText: "${hintText ?? "Hint-Text"}",
+        hintText: "${hintText ?? "hintText"}",
       ),
     ),
   );

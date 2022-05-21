@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import "package:flutter/material.dart";
+import "package:google_fonts/google_fonts.dart";
 
 // ignore: must_be_immutable
 class FunctionalityButtons extends StatelessWidget {
@@ -34,7 +34,6 @@ class FunctionalityButtons extends StatelessWidget {
           width: s.width,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
             boxShadow: [
               BoxShadow(
                 offset: Offset(2.0, 2.0),
@@ -44,19 +43,25 @@ class FunctionalityButtons extends StatelessWidget {
             ],
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Icon(
-                icon,
-                size: iconSize,
-                color: iconColor,
+              Center(
+                child: Icon(
+                  icon,
+                  size: iconSize,
+                  color: iconColor,
+                ),
               ),
-              Text(
-                "${text ?? "Text"}",
-                style: GoogleFonts.lateef(
-                  textStyle: TextStyle(
-                    fontSize: fontsize,
-                    fontWeight: fontWeight,
+              Center(
+                child: Text(
+                  "${text ?? "Text"}",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.salsa(
+                    textStyle: TextStyle(
+                      fontSize: fontsize,
+                      fontWeight: fontWeight,
+                    ),
                   ),
                 ),
               ),

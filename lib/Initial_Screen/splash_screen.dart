@@ -1,10 +1,10 @@
-import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:meme_generator/Main_Screens/first_screen.dart';
+import "dart:async";
+import "package:flutter/material.dart";
+import "package:meme_generator/Main_Screens/first_screen.dart";
 
 class SplashScreen extends StatefulWidget {
   ///Final id
-  static final id = '/SplashScreen';
+  static final String id = "/SplashScreen";
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     _timer = Timer(
-      Duration(seconds: 3),
+      Duration(seconds: 2),
       () async {
         await Navigator.pushReplacementNamed(
           context,
@@ -37,19 +37,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Size s = MediaQuery.of(context).size;
     return Scaffold(
       ///theme
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Container(
-        height: double.infinity,
-        width: double.infinity,
+        height: s.height,
+        width: s.width,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ///Meme Generator logo
               Image.asset(
-                'images/memegenrator-removebg-preview.png',
+                "images/memegenrator-removebg-preview.png",
               ),
               CircularProgressIndicator(
                 color: Theme.of(context).primaryColor,

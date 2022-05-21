@@ -1,15 +1,17 @@
-import 'dart:io';
-import 'package:ext_storage/ext_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:meme_generator/Images_Screen/image_preview_screen.dart';
-import 'package:permission_handler/permission_handler.dart';
+import "dart:io";
+import "package:ext_storage/ext_storage.dart";
+import "package:flutter/material.dart";
+import 'package:google_fonts/google_fonts.dart';
+import "package:meme_generator/Images_Screen/image_preview_screen.dart";
+import "package:permission_handler/permission_handler.dart";
 
-class MyHomePage extends StatefulWidget {
+class MyMemesScreen extends StatefulWidget {
+  static final String id = "/MyMemesScreen";
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyMemesScreenState createState() => _MyMemesScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyMemesScreenState extends State<MyMemesScreen> {
   Future _futureGetPath;
   List<dynamic> listImagePath = List<dynamic>();
   var _permissionStatus;
@@ -27,7 +29,11 @@ class _MyHomePageState extends State<MyHomePage> {
     final Size s = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("MY Memes".toUpperCase()),
+        backgroundColor: Theme.of(context).backgroundColor,
+        title: Text(
+          "MY Memes".toUpperCase(),
+          style: GoogleFonts.salsa(),
+        ),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -43,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
                       var dir = Directory(snapshot.data);
-                      print('permission status: $_permissionStatus');
+                      print("permission status: $_permissionStatus");
                       if (_permissionStatus) _fetchFiles(dir);
                       return Text("");
                     } else {
@@ -95,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
     dir.list().forEach((element) {
       RegExp regExp =
           new RegExp("\.(gif|jpe?g|tiff?|png|webp|bmp)", caseSensitive: false);
-      if (regExp.hasMatch('$element')) listImage.add(element);
+      if (regExp.hasMatch("$element")) listImage.add(element);
       setState(() {
         listImagePath = listImage;
       });

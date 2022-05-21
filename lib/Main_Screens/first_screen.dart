@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:meme_generator/Custom_Buttons/custom_button.dart';
-import 'package:meme_generator/Main_Screens/home_screen.dart';
-import 'package:meme_generator/Images_Screen/my_memes_screen.dart';
+import "package:flutter/material.dart";
+import "package:meme_generator/Custom_Buttons/custom_button.dart";
+import "package:meme_generator/Main_Screens/home_screen.dart";
+import "package:meme_generator/Images_Screen/my_memes_screen.dart";
 
 class FirstScreen extends StatelessWidget {
   ///Final id
-  static final id = '/FirstScreen';
+  static final String id = "/FirstScreen";
 
   ///Main Body
   @override
@@ -19,7 +19,7 @@ class FirstScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'images/smiley2.png',
+                  "images/smiley2.png",
                 ),
                 SizedBox(height: 10),
 
@@ -32,19 +32,17 @@ class FirstScreen extends StatelessWidget {
                     );
                   },
                   child: CustomButton(
-                    txt: 'Make Memes',
+                    text: "Make Memes",
                   ),
                 ),
 
                 ///Custom Button 1
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return MyHomePage();
-                    }));
+                    Navigator.pushNamed(context, MyMemesScreen.id);
                   },
                   child: CustomButton(
-                    txt: 'My Memes',
+                    text: "My Memes",
                   ),
                 ),
               ],

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import "package:flutter/material.dart";
+import "package:google_fonts/google_fonts.dart";
 
 // ignore: must_be_immutable
 class CustomTextWidget extends StatelessWidget {
@@ -24,9 +24,9 @@ class CustomTextWidget extends StatelessWidget {
       width: s.width,
       child: Center(
         child: Text(
-          "${title ?? "Title"}",
+          "${title ?? "title"}",
           textAlign: TextAlign.center,
-          style: GoogleFonts.lateef(
+          style: GoogleFonts.salsa(
             textStyle: TextStyle(
               fontSize: size,
               fontWeight: fontWeight,
